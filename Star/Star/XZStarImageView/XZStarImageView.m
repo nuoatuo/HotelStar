@@ -13,6 +13,14 @@
 //星级图片视图高
 #define kStarImageViewHeight 10.0
 
+//调节值
+#define kAdjustPadding 1.0
+//图层视图宽
+#define kLayerViewWidth (kStarImageViewWidth + kAdjustPadding)
+//图层视图高
+#define kLayerViewHeight (kStarImageViewHeight + kAdjustPadding*2)
+
+
 @interface XZStarImageView ()
 //图层视图
 @property (nonatomic, strong) UIView *layerView;
@@ -50,7 +58,7 @@
 #pragma mark - getter
 - (UIView *)layerView {
     if (_layerView == nil) {
-        UIView *layerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, kStarImageViewWidth, kStarImageViewHeight)];
+        UIView *layerView = [[UIView alloc] initWithFrame:CGRectMake(0, -kAdjustPadding, kLayerViewWidth, kLayerViewHeight)];
         layerView.backgroundColor = [UIColor whiteColor];
         
         [self addSubview:layerView];
@@ -75,7 +83,7 @@
 - (void)updateStarImageViewStyle {
     self.backgroundColor =[UIColor whiteColor];
     self.image = [UIImage imageNamed:@"hotel_star_icon"];
-   
+    
     [self updateLayerViewFrame];
 }
 
@@ -83,10 +91,10 @@
  更新图层视图frame
  */
 - (void)updateLayerViewFrame {
-    CGFloat layerViewX = self.starLevel * (kStarImageViewWidth / 5);
-    CGFloat layerViewWidth = kStarImageViewWidth - layerViewX;
+    CGFloat layerViewX = self.starLevel * (kLayerViewWidth / 5);
+    CGFloat layerViewWidth = kLayerViewWidth - layerViewX;
     
-    self.layerView.frame = CGRectMake(layerViewX, 0.0f, layerViewWidth, kStarImageViewHeight);
+    self.layerView.frame = CGRectMake(layerViewX, -kAdjustPadding, layerViewWidth, kLayerViewHeight);
 }
 
 @end
